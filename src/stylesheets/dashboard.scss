@@ -1,0 +1,55 @@
+.dashboard {
+    height: 91vh;;
+    background-color: $grayDashboardBG;
+    margin: 0 !important;
+    padding: 1% 10% 10% 8%;
+    .jumbotron {
+        padding: 4% !important;
+    }
+    &__text--sm {
+        font-size: 16px;
+    }
+    .showFavorites {
+        font-size: 20px;
+        background-color: $lightgray;
+        width: 30%;
+        text-align: center;
+        border-radius: 4px;
+        cursor: pointer;
+    }    
+}
+
+.dashboard__favorites {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 3%;
+    .favorite-section-title {
+        font-weight: bold;
+        font-size: 1.3em;
+        text-align: center;
+        margin: 4% 0;
+    }
+    .uploadImage {
+        cursor: pointer;
+    }
+    .uploadSpinner {
+        text-align: center;
+        padding: 32% 0;
+    }
+    .dashboard-upload-Btn {
+        width: 100%;
+        margin: 4px 0 0 0;
+    }
+    .dashboard-progress {
+        width: 100% !important;
+        color: $gray !important;
+        background-color: $lightgray !important;
+        margin-bottom: .5rem;
+    }
+    .hideInput {
+        display: none;
+    }
+}
+
+
+

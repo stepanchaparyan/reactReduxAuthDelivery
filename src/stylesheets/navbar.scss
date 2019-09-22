@@ -1,0 +1,111 @@
+.navbar__navItem__navLink--text {
+    margin: 0 20px;
+    text-decoration: none !important;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: $white;
+    &:hover {
+        color: $black !important;
+    }
+}
+
+.container {
+    margin-left: 10% !important;
+    .nav {
+        align-items: center;
+        .nav__profileName {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .nav__avatar {
+            margin: 5px 15px;
+            cursor: pointer;
+        }
+    }
+}
+
+.navbar__profileInfo {
+    display: block;
+    position: absolute;
+    background-color: $verylightgray;
+    min-width: 260px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 76px;
+    right: 25px;
+    color: $black;
+    width: 400px;
+    height: auto;
+    .navbar__profileInfo__full {
+        display: flex;
+        justify-content: space-around;
+        border-radius: 4px;
+        box-shadow: 2px 4px 5px 4px $gray;
+        .navbar__profileInfo__leftPart {
+            margin-top: 10px;
+            margin-bottom: 7px;
+            .navbar__profileInfo__leftPart__title {
+            font-weight: bold;
+            color: $appColor;
+            margin-top: 8px;
+            }
+            .navbar__profileInfo__faEdit {
+                margin: 0 10px 5px 0;
+                vertical-align: text-top;
+            }
+            .navbar__profileInfo__editableInput {
+                border-width: thin;
+                border-style: outset;
+                border-color: $appColor;
+                border-radius: 4px;
+                outline: none;
+                padding-left: 2px;
+            }
+            .navbar__profileInfo__editableInput--margin {
+                margin-left: 30px;
+            }
+            .navbar__profileInfo__editableInput__tooltipClass {
+                color: $white !important;
+                background-color: $appColor !important;
+            }
+            .navbar__profileInfo__emailErrorMessage {
+                color: $red;
+                font-size: 12px;
+                margin-top: 5px;
+                max-width: 220px;
+            }            
+        }
+
+        .navbar__profileInfo__rightPart {
+            .navbar__profileInfo__uploadingImage {
+                margin: 10px;
+            }
+            .navbar__profileInfo__fileInput {
+                display: none;
+            }
+            .progress {
+                width: 80%;
+                margin-left: 10%;
+            }
+            .navbar__profileInfo__uploadBtn {
+                margin: 15px;
+                width: 80%;
+                margin-left: 10%;
+                height: 13%;
+                font-size: 14px;
+                &:disabled {
+                    opacity: 0.3; 
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}
+
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    max-width: 230px;
+}
