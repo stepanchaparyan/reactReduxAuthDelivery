@@ -6,7 +6,7 @@ import firebase from '../../config/fbConfig';
 import { Button, Image } from 'react-components';
 import M from '../../en.messages';
 import '../../styles.scss';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logoSignUp.png';
 
 class ForgotPasword extends Component {
     state = {

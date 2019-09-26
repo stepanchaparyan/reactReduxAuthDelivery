@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { Jumbotron } from 'reactstrap';
 import M from '../../Messages';
 import ReactPlayer from 'react-player';
-import UploadSection from './uploadSection';
 import '../../styles.scss';
 
 class Dashboard extends Component {
@@ -17,6 +17,7 @@ class Dashboard extends Component {
   }
 
   static propTypes = {
+    auth: PropTypes.object,
     user: PropTypes.object
   };
 
@@ -27,8 +28,8 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    if (!user) {return <Redirect to='/signIn' />;}
+    const { auth } = this.props;
+    if (!auth.uid) {return <Redirect to='/signIn' />;}
     return (
       <DocumentTitle title='Simple Auth App - Dashboard'>
         <div className="dashboard">
@@ -40,8 +41,7 @@ class Dashboard extends Component {
             </Jumbotron>
             {this.state.show &&
               <div className='dashboard__favorites'>
-                  <UploadSection imageSource='Painter' user={user} />
-                  <UploadSection imageSource='Singer' user={user} />
+
                   <div>
                       <p className='favorite-section-title'>{M.get('dashboard.myFavoriteSong')}</p>
                       <ReactPlayer
@@ -59,4 +59,12 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+    authError: state.auth.authError
+  };
+};
+
+export default connect(mapStateToProps, null)(Dashboard);

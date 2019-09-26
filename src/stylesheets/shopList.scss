@@ -1,0 +1,44 @@
+#x{
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    padding: 0 !important;
+}
+
+.table td {
+    vertical-align: middle !important;
+    padding-right: 1% !important;
+    padding-left: 1% !important; 
+}
+
+.emptySpace {
+    min-width: 5%;
+}
+
+#tdButton {
+    text-align: center;
+    width: 10%;
+}
+
+.firstTD {
+    width: 5%;
+    text-align: center;
+}
+
+#headtr {
+    background-color: #F6F6F6F6 !important;
+}
+
+#headtr:hover {
+    color: black !important;
+}
+
+tr:hover {
+    color:gray !important;
+}
+
+.shopData {
+    width: 29%
+}

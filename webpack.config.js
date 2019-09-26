@@ -40,7 +40,7 @@ const common = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['*', '.js', '.jsx', '.json', '.gif', '.png']
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -62,7 +62,10 @@ const developmentConfig = {
             errors: true,
             warnings: true
         },
-        port: 3003
+        port: 3003,
+        historyApiFallback: true,
+        contentBase: './',
+        hot: true
     }
     // watch: true
     // devtool: 'source-map',

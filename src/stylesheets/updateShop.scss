@@ -1,0 +1,15 @@
+.detailsPage {
+    display: flex;
+}
+.updatebtn {
+    text-align: center;
+    font-size: 14px !important;
+    max-width: 25% !important;
+    height: 37px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .updatebtn {
+        max-width: 80% !important;
+    }
+  }

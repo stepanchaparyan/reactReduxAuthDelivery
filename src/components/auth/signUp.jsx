@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signUp } from '../../store/actions/authActions';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { DebounceInput } from 'react-debounce-input';
 import { Button, Image, Icon } from 'react-components';
-import firebase from '../../config/fbConfig';
 import Constants from '../../constants';
 import M from '../../Messages';
-import logo from '../../assets/logo.png';
-import '../../styles.scss';
+import logoSignUp from '../../assets/logoSignUp.png';
 
 class SignUp extends Component {
   state = {
@@ -26,7 +26,12 @@ class SignUp extends Component {
   }
 
   static propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    auth: PropTypes.shape({
+      uid: PropTypes.string
+    }),
+    authError: PropTypes.any,
+    signUp: PropTypes.func.isRequired
   };
 
   handleChange = (e) => {
@@ -37,29 +42,7 @@ class SignUp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then((resp) => {
-      resp.user.updateProfile({
-        displayName: this.state.displayName,
-        photoURL: this.state.photoURL
-      });
-      this.setState({user: resp.user});
-      firebase.firestore().collection('users').doc(resp.user.uid).set({
-        created: new Date(),
-        updated: new Date(),
-        displayName: this.state.displayName,
-        email: this.state.email,
-        phoneNumber: this.state.phoneNumber,
-        photoURL: this.state.photoURL,
-        favSingerPhotoURL: this.state.photoURL,
-        favPainterPhotoURL: this.state.photoURL
-      });
-      setTimeout( function () { window.location.reload(); },1000);
-    })
-    .catch((error) => {
-      this.text = error.message;
-      this.setState({errorText: error.message});
-    });
+    this.props.signUp(this.state);
   }
 
   showhidepass = () => {
@@ -68,13 +51,16 @@ class SignUp extends Component {
   }
 
   render() {
-    if (this.props.user) {return <Redirect to='/' />;}
+    // eslint-disable-next-line no-unused-vars
+    const { auth, authError } = this.props;
+    if (auth.uid) {return <Redirect to='/' />; }
+    console.log('props ', this.props);
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
         <div className="loginContainer">
         <div className="formSignUp">
           <div className="logo">
-            <Image src={logo} id='logo' alt="Logo" height={80} width={200} />
+            <Image src={logoSignUp} id='logo' alt="Logo" height={80} width={200} />
           </div>
           <div className="title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
@@ -158,4 +144,17 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  };
+};
+
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    signUp: (creds) => dispatch(signUp(creds))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

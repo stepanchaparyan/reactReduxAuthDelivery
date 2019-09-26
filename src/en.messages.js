@@ -20,7 +20,23 @@ let messages = {
         'showMyFavorites': 'Show my favorites',
         'myFavoriteSong': 'My favorite song',
         'myFavorite': 'My favorite'
-    }
+    },
+    shops: 'Shops',
+    city: 'City',
+    address: 'Address',
+    shopsList: 'Shops list',
+    addNewShop: 'Add new shop',
+
+    products: 'Products',
+    productsList: 'Products list',
+    addNewProduct: 'Add new product',
+    price: 'Price',
+    quantity: 'Quantity',
+
+    update: 'Update',
+    add: 'Add',
+    loadingProject: 'Loading project ...'
+
 };
 
 module.exports = messages;

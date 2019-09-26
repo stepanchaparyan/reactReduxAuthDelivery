@@ -1,4 +1,5 @@
 import React, {Component, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Nav, NavItem, Progress } from 'reactstrap';
 import PropTypes from 'prop-types';
 import firebase, {storage} from '../../config/fbConfig';
@@ -7,11 +8,14 @@ import { Button, Icon, Image, Tooltip } from 'react-components';
 import M from '../../Messages';
 import '../../styles.scss';
 import Constants from '../../constants';
+import { signOut } from '../../store/actions/authActions';
+import { connect } from 'react-redux';
 
 class SignedInLinks extends Component {
   static propTypes = {
     signOut: PropTypes.func,
-    user: PropTypes.object
+    auth: PropTypes.object,
+    profile: PropTypes.object
   };
 
   constructor(props) {
@@ -60,7 +64,7 @@ class SignedInLinks extends Component {
   }
 
   handleUpload = () => {
-    const uid = this.props.user.uid;
+    const uid = this.props.auth.uid;
     const {image} = this.state;
     const uploadTask = storage.ref(`${uid}/${image.name}`).put(image);
     uploadTask.on('state_changed',
@@ -104,7 +108,7 @@ class SignedInLinks extends Component {
   }
 
   updateFirestoreUserDisplayName = (displayName) => {
-    const uid = this.props.user.uid;
+    const uid = this.props.auth.uid;
     firebase.firestore().collection('users').doc(uid).update({
         displayName: displayName,
         updated: new Date()
@@ -145,7 +149,7 @@ class SignedInLinks extends Component {
   }
 
   updateFirestoreUserEmail = (email) => {
-    const uid = this.props.user.uid;
+    const uid = this.props.auth.uid;
     firebase.firestore().collection('users').doc(uid).update({
         email: email,
         updated: new Date()
@@ -166,16 +170,19 @@ class SignedInLinks extends Component {
   }
 
   render () {
-    // console.log(this.props.user);
+    const { profile, auth } = this.props;
     return (
       <Nav pills>
+        <NavLink exact to='/shops' className="nav__shop__link text-white nav-text">
+          {M.get('shops')}
+        </NavLink>
         <Tooltip
-            position="left"
-            content={this.state.displayName || this.props.user.displayName}
+            position="bottom"
+            content={this.state.displayName || auth.displayName || profile.displayName}
           >
           <NavItem
               className="nav__profileName text-ellipsis">
-              {this.state.displayName || this.props.user.displayName}
+              {this.state.displayName || auth.displayName || profile.displayName}
           </NavItem>
         </Tooltip>
         <Image
@@ -183,7 +190,7 @@ class SignedInLinks extends Component {
             width={40}
             height={40}
             className='nav__avatar'
-            src={this.state.photoURL || this.props.user.photoURL || Constants.photoURL}
+            src={this.state.photoURL || auth.photoURL || Constants.photoURL}
             onClick={this.showExtraInfo}
         />
         <div className='navbar__profileInfo'>
@@ -194,13 +201,13 @@ class SignedInLinks extends Component {
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
-                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputName} defaultValue={this.state.displayName || this.props.user.displayName}></input>
+                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputName} defaultValue={this.state.displayName || profile.displayName}></input>
                       </Fragment> :
                       <Fragment>
                         <div className="text-ellipsis"
-                              data-tip={this.state.displayName || this.props.user.displayName}>
+                              data-tip={this.state.displayName || profile.displayName}>
                               <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
-                              {this.state.displayName || this.props.user.displayName}
+                              {this.state.displayName || profile.displayName}
                         </div>
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
@@ -209,13 +216,13 @@ class SignedInLinks extends Component {
                       { this.state.editable ?
                       <Fragment>
                         <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewEmail} />
-                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputEmail} defaultValue={this.state.email || this.props.user.email}></input>
+                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputEmail} defaultValue={this.state.email || auth.email}></input>
                       </Fragment> :
                       <Fragment>
                         <div className="text-ellipsis"
-                              data-tip={this.state.email || this.props.user.email}>
+                              data-tip={this.state.email || auth.email}>
                               <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
-                              {this.state.email || this.props.user.email}
+                              {this.state.email || auth.email}
                         </div>
                         {this.state.emailUpdateError && <div className='navbar__profileInfo__emailErrorMessage'>{this.state.emailUpdateError}</div>}
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
@@ -233,7 +240,7 @@ class SignedInLinks extends Component {
                           <label htmlFor="navbar__profileInfo__fileInput">
                               <Image
                                   className='navbar__profileInfo__uploadingImage'
-                                  src={this.state.photoURL || this.props.user.photoURL}
+                                  src={this.state.photoURL || auth.photoURL || profile.photoURL}
                                   width={120}
                                   height={120}
                               />
@@ -274,4 +281,10 @@ class SignedInLinks extends Component {
   }
 }
 
-export default SignedInLinks;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignedInLinks);

@@ -9,8 +9,10 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Button, Image, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
 import M from '../../Messages';
-import logo from '../../assets/logo2.png';
+import logoSignIn from '../../assets/logoSignIn.png';
 import '../../styles.scss';
+import { connect } from 'react-redux';
+import { signIn } from '../../store/actions/authActions';
 
 class SignIn extends Component {
   state = {
@@ -35,7 +37,11 @@ class SignIn extends Component {
   }
 
   static propTypes = {
-    user: PropTypes.object
+    auth: PropTypes.shape({
+      uid: PropTypes.string
+    }),
+    authError: PropTypes.any,
+    signIn: PropTypes.func.isRequired
   };
 
   handleChange = (e) => {
@@ -46,13 +52,7 @@ class SignIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then((user) => {
-      this.setState({user: user});
-    })
-    .catch((error) => {
-      this.setState({errorText: error.message});
-    });
+    this.props.signIn(this.state);
   }
 
   showhidepass = () => {
@@ -61,13 +61,14 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.props.user) {return <Redirect to='/' />;}
+    const { auth } = this.props;
+    if (auth.uid) {return <Redirect to='/' />; }
     return (
       <DocumentTitle title='Simple Auth App - Sign In'>
         <div className="loginContainer">
         <div className="formSignIn">
             <div className="logo">
-              <Image id='logo' src={logo} alt="Logo" height={20} width={210}/>
+              <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/>
             </div>
             <div className="title">{M.get('logIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
@@ -123,4 +124,17 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
