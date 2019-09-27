@@ -2,35 +2,31 @@ import React, { Component } from 'react';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import DocumentTitle from 'react-document-title';
 import validator from 'validator';
-import firebase from '../../config/fbConfig';
 import { Button, Image } from 'react-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { resetPassword } from '../../store/actions/authActions';
 import M from '../../en.messages';
-import '../../styles.scss';
 import logo from '../../assets/logoSignUp.png';
 
 class ForgotPasword extends Component {
     state = {
-        email: '',
-        errorText: '',
-        message: ''
+        email: ''
     }
+
+    static propTypes = {
+        resetPassword: PropTypes.func
+      };
 
     handleChange = (e) => {
         this.setState({
-            email: e.target.value,
-            message: '',
-            errorText: ''
+            email: e.target.value
         });
     }
 
-    sendEmail = (e) => {
+    resetPassword = (e) => {
         e.preventDefault();
-        // eslint-disable-next-line no-unused-vars
-        firebase.auth().sendPasswordResetEmail(this.state.email).then((u) => {
-            this.setState({show: true, message: true});
-        }).catch((error) => {
-            this.setState({errorText: error.message});
-        });
+        this.props.resetPassword(this.state.email);
     }
 
     render () {
@@ -42,7 +38,7 @@ class ForgotPasword extends Component {
                     <Image id='logo' src={logo} alt="Logo" width={180} height={80}/>
                 </div>
                 <div className="title">{M.get('forgotPassword')}</div>
-                <ValidationForm onSubmit={this.sendEmail}>
+                <ValidationForm onSubmit={this.resetPassword}>
                     <div className="form-group">
                         <label className="lebel" htmlFor="email">{M.get('resetPassword')}</label>
                         <TextInput name="email"
@@ -53,12 +49,6 @@ class ForgotPasword extends Component {
                                    value={this.state.email}
                                    onChange={this.handleChange}
                         />
-                    </div>
-                    <div id="wrongUser">
-                        { this.state.errorText ? <p>{this.state.errorText}</p> : null }
-                    </div>
-                    <div id="wrongUser">
-                        { this.state.message ? <p>{'Please check your email'}</p> : null }
                     </div>
                     <div className="form-group">
                         <Button className="btnSign">{M.get('submit')}</Button>
@@ -71,4 +61,10 @@ class ForgotPasword extends Component {
     }
 }
 
-export default ForgotPasword;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        resetPassword: (email) => dispatch(resetPassword(email))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(ForgotPasword);

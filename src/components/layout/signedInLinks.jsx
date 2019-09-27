@@ -6,7 +6,6 @@ import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
 import M from '../../Messages';
-import '../../styles.scss';
 import Constants from '../../constants';
 import { signOut } from '../../store/actions/authActions';
 import { connect } from 'react-redux';

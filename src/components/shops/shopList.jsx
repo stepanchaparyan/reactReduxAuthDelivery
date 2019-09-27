@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Table, Button } from 'reactstrap';
-import '../../stylesheets/shopList.scss';
 import { connect } from 'react-redux';
 import { deleteShop } from '../../store/actions/shopActions';
 import UpdateShop from './updateShop';
@@ -18,7 +17,7 @@ class ShopList extends Component {
   }
 
   static propTypes = {
-    shops: PropTypes.arrayOf(PropTypes.object).isRequired,
+    shops: PropTypes.arrayOf(PropTypes.object),
     deleteShop: PropTypes.func.isRequired
   }
 

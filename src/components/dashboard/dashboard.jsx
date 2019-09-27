@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Jumbotron } from 'reactstrap';
 import M from '../../Messages';
 import ReactPlayer from 'react-player';
-import '../../styles.scss';
 
 class Dashboard extends Component {
   constructor(props) {

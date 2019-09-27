@@ -7,7 +7,6 @@ import SignedOutLinks from './signedOutLinks';
 import firebase from '../../config/fbConfig';
 import { Image } from 'react-components';
 import logoSignIn from '../../assets/logoSignIn.png';
-import '../../styles.scss';
 
 class MyNavbar extends Component {
   static propTypes = {

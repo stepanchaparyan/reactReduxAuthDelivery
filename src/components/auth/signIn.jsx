@@ -6,11 +6,10 @@ import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { Button, Image, Icon } from 'react-components';
+import { Button, Icon } from 'react-components';
 import firebase from '../../config/fbConfig';
 import M from '../../Messages';
-import logoSignIn from '../../assets/logoSignIn.png';
-import '../../styles.scss';
+// import logoSignIn from '../../assets/logoSignIn.png';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 
@@ -68,7 +67,7 @@ class SignIn extends Component {
         <div className="loginContainer">
         <div className="formSignIn">
             <div className="logo">
-              <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/>
+              {/* <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/> */}
             </div>
             <div className="title">{M.get('logIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>

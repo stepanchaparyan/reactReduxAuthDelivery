@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Nav, NavItem } from 'reactstrap';
 import M from '../../Messages';
-import '../../styles.scss';
 
 const SignedOutLinks = () => {
   return (

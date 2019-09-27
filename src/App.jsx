@@ -8,55 +8,22 @@ import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
 import PageNotFound from './components/pageNotFound';
 import Shops from './components/shops/shops';
-import firebase from './config/fbConfig';
-import { Spinner } from 'react-components';
-import './styles.scss';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      phoneNumber: '',
-      loading: false
-    };
-  }
-
-  componentDidMount() {
-    this.authListener();
-  }
-
-  authListener() {
-    firebase.auth().onAuthStateChanged((user) => {
-        this.setState({ loading:true });
-      if (user) {
-        this.setState({ user: user });
-      } else {
-        this.setState({ user: null });
-      }
-    });
-  }
-
   render() {
-    const loading = this.state.loading;
-    // console.log('app ', this.state.user);
-
     return (
       <BrowserRouter history={history}>
-      {loading ?
         <div className="App">
-          <Navbar user={this.state.user}/>
+          <Navbar />
           <Switch>
-            <Route exact path='/' render={() => <Dashboard user={this.state.user}/>} />
-            <Route path='/signin' render={() => <SignIn user={this.state.user}/>} />
-            <Route path='/signup' render={() => <SignUp user={this.state.user}/>} />
+            <Route exact path='/' render={() => <Dashboard />} />
+            <Route path='/signin' render={() => <SignIn />} />
+            <Route path='/signup' render={() => <SignUp />} />
             <Route path='/forgotPassword' render={() => <ForgotPassword />} />
-            <Route path='/shops' render={() => <Shops user={this.state.user}/>} />
+            <Route path='/shops' render={() => <Shops />} />
             <Route path='*' render={() => <PageNotFound />} />
           </Switch>
         </div>
-      : <Spinner className={'appSpinner'}/>
-      }
       </BrowserRouter>
     );
   }

@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { DebounceInput } from 'react-debounce-input';
-import { Button, Image, Icon } from 'react-components';
+import { Button, Icon } from 'react-components';
 import Constants from '../../constants';
 import M from '../../Messages';
-import logoSignUp from '../../assets/logoSignUp.png';
+// import logoSignUp from '../../assets/logoSignUp.png';
 
 class SignUp extends Component {
   state = {
@@ -54,13 +54,13 @@ class SignUp extends Component {
     // eslint-disable-next-line no-unused-vars
     const { auth, authError } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
-    console.log('props ', this.props);
+    console.log('props Up', this.props);
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
         <div className="loginContainer">
         <div className="formSignUp">
           <div className="logo">
-            <Image src={logoSignUp} id='logo' alt="Logo" height={80} width={200} />
+            {/* <Image src={logoSignUp} id='logo' alt="Logo" height={80} width={200} /> */}
           </div>
           <div className="title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
