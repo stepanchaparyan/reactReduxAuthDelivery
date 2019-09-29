@@ -7,7 +7,7 @@ import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form
 import validator from 'validator';
 import { Button, Icon } from 'react-components';
 import M from '../../Messages';
-// import logoSignIn from '../../assets/logoSignIn.png';
+// import logo from '../../assets/logo2.png';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 
@@ -53,7 +53,7 @@ class SignIn extends Component {
         <div className="loginContainer">
         <div className="formSignIn">
             <div className="logo">
-              {/* <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/> */}
+              {/* <Image id='logo' src={logo} alt="Logo" height={20} width={210}/> */}
             </div>
             <div className="signIn__title">{M.get('signIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>

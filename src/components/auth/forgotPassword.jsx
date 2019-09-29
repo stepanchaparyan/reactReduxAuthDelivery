@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { resetPassword } from '../../store/actions/authActions';
 import M from '../../en.messages';
-import logo from '../../assets/logoSignUp.png';
+import logo from '../../assets/logo.png';
 
 class ForgotPasword extends Component {
     state = {
@@ -35,7 +35,7 @@ class ForgotPasword extends Component {
             <div className="loginContainer">
             <div className="formForgotPassword">
                 <div className="logo">
-                    <Image id='logo' src={logo} alt="Logo" width={180} height={80}/>
+                    <Image id='logo' src={logo} alt="Logo" width={180} height={25}/>
                 </div>
                 <div className="forgot__title">{M.get('forgotPassword')}</div>
                 <ValidationForm onSubmit={this.resetPassword}>

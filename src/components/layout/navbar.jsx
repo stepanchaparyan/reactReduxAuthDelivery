@@ -6,7 +6,7 @@ import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
 import firebase from '../../config/fbConfig';
 import { Image } from 'react-components';
-import logoSignIn from '../../assets/logoSignIn.png';
+import logo from '../../assets/logo.png';
 
 class MyNavbar extends Component {
   static propTypes = {
@@ -27,7 +27,7 @@ class MyNavbar extends Component {
       <Navbar className="p-2 bg-info text-white" light expand="md">
         <Container>
           <NavbarBrand href="/">
-              <Image src={logoSignIn} alt="Logo" width={200} height={22}/>
+              <Image src={logo} alt="Logo" width={200} height={22}/>
           </NavbarBrand>
           {links}
         </Container>

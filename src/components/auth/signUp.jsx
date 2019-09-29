@@ -10,7 +10,7 @@ import { DebounceInput } from 'react-debounce-input';
 import { Button, Icon } from 'react-components';
 import Constants from '../../constants';
 import M from '../../Messages';
-// import logoSignUp from '../../assets/logoSignUp.png';
+// import logo from '../../assets/logo.png';
 
 class SignUp extends Component {
   state = {
@@ -59,7 +59,7 @@ class SignUp extends Component {
         <div className="loginContainer">
         <div className="formSignUp">
           <div className="logo">
-            {/* <Image src={logoSignUp} id='logo' alt="Logo" height={80} width={200} /> */}
+            {/* <Image src={logo} id='logo' alt="Logo" height={80} width={200} /> */}
           </div>
           <div className="signUp__title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
