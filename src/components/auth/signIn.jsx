@@ -112,7 +112,7 @@ class SignIn extends Component {
               <Link className="forgotPassword" to="/forgotPassword">{M.get('forgotPassword')}?</Link>
               <StyledFirebaseAuth
                 uiConfig={this.uiConfig}
-                firebaseAuth={firebase.auth().then}
+                firebaseAuth={firebase.auth()}
                 className={'socialAuth'}
               />
           </ValidationForm>
