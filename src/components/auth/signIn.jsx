@@ -55,7 +55,7 @@ class SignIn extends Component {
             <div className="logo">
               {/* <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/> */}
             </div>
-            <div className="signIn__title">{M.get('logIn')}</div>
+            <div className="signIn__title">{M.get('signIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
               <div className="form-group">
                   <label className="lebel" htmlFor="email">{M.get('email')}</label>

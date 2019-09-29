@@ -4,7 +4,7 @@
                          "left main right"
                          "down down down";
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.3fr 6fr 0.5fr;
+    grid-template-rows: 0.2fr 1fr 0.3fr;
     min-height: 92.5vh;    
     background-size: cover;
     background-image: url("./assets/bg.jpg");
@@ -16,7 +16,7 @@
     grid-template-areas: "logo"
                          "title"
                          "form";
-    grid-template-rows: 0.4fr 0.3fr 4fr;
+    grid-template-rows: 0.1fr 0.2fr 0.9fr;
     font-family: 'Times New Roman', Times, serif;
     font-size: 18px;
     font-weight: bold;
@@ -28,7 +28,6 @@
 
 .formSignIn {
     @extend .formSignUp;
-    grid-template-rows: 0.1fr 0.1fr 1.5fr;
 }
 
 .logo {
@@ -94,7 +93,7 @@
 
 .formForgotPassword {
     @extend .formSignUp;
-    grid-template-rows: 0.4fr 0.3fr 1.5fr;
+    grid-template-rows: 0.6fr 0.5fr 1.5fr;
 }
 
 .forgotPassword {
