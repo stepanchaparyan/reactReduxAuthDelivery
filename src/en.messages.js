@@ -1,5 +1,6 @@
 let messages = {
     name: 'Name',
+    userName: 'User name',
     email: 'Email',
     password: 'Password',
     logIn: 'Log In',

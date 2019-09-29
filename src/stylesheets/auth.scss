@@ -37,11 +37,17 @@
     margin-top: 10px;
 }
 
-.title {
+.signUp__title, .signIn__title{
+    grid-area: title;
+    font-size: 30px;
+    margin-left: 37%;
+}
+
+.forgot__title {
     grid-area: title;
     align-self: center;
     font-size: 30px;
-    margin: auto;
+    margin: auto !important;
 }
 
 .form-group {

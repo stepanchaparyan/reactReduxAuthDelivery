@@ -29,6 +29,12 @@
     font-weight: bold;
     font-size: 18px;
     margin-right: 40px;
+    text-decoration: none;
+    color: $black !important;
+}
+.nav__shop__link:hover {
+    text-decoration: none;
+    font-size: 20px;
 }
 
 .navbar__profileInfo {
@@ -45,16 +51,17 @@
     height: auto;
     .navbar__profileInfo__full {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         border-radius: 4px;
         box-shadow: 2px 4px 5px 4px $gray;
         .navbar__profileInfo__leftPart {
-            margin-top: 10px;
-            margin-bottom: 7px;
+            margin: 10px 0 7px 10%;
+            // margin-bottom: 7px;
             .navbar__profileInfo__leftPart__title {
             font-weight: bold;
             color: $appColor;
-            margin-top: 8px;
+            margin-top: 20px;
+            margin-bottom: 3px;
             }
             .navbar__profileInfo__faEdit {
                 margin: 0 10px 5px 0;
@@ -67,23 +74,20 @@
                 border-radius: 4px;
                 outline: none;
                 padding-left: 2px;
-            }
-            .navbar__profileInfo__editableInput--margin {
-                margin-left: 30px;
+                margin-bottom: 10px;
+                width: 70%;
             }
             .navbar__profileInfo__editableInput__tooltipClass {
                 color: $white !important;
                 background-color: $appColor !important;
-            }
-            .navbar__profileInfo__emailErrorMessage {
-                color: $red;
-                font-size: 12px;
-                margin-top: 5px;
-                max-width: 220px;
-            }            
+            }   
+            .profile__data__editable {
+                margin-bottom: 30px;
+            }      
         }
 
         .navbar__profileInfo__rightPart {
+            margin-right: 7%;
             .navbar__profileInfo__uploadingImage {
                 margin: 10px;
             }
@@ -113,5 +117,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; 
-    max-width: 230px;
+    max-width: 190px;
 }

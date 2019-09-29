@@ -54,7 +54,6 @@ class SignUp extends Component {
     // eslint-disable-next-line no-unused-vars
     const { auth, authError } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
-    console.log('props Up', this.props);
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
         <div className="loginContainer">
@@ -62,7 +61,7 @@ class SignUp extends Component {
           <div className="logo">
             {/* <Image src={logoSignUp} id='logo' alt="Logo" height={80} width={200} /> */}
           </div>
-          <div className="title">{M.get('signup')}</div>
+          <div className="signUp__title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
             <div className="form-group">
                 <label className="lebel" htmlFor="email">{M.get('email')}</label>

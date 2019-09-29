@@ -12,13 +12,12 @@ import messages from '../../en.messages';
 class Shops extends Component {
   static propTypes = {
     auth: PropTypes.shape({
-      uid: PropTypes.string.isRequired
+      uid: PropTypes.string
     }),
     shops: PropTypes.arrayOf(PropTypes.object)
   };
 
   render() {
-    console.log('shops ', this.props);
     const { shops, auth } = this.props;
     if (!auth.uid) {return <Redirect to='/signin' />;}
     return (
@@ -48,7 +47,11 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'shops', orderBy: [ 'name', 'asc' ] }
+  firestoreConnect(props => [
+    {
+      collection: 'shops',
+      where: [ 'uid', '==', props.auth.uid || null ]
+      // orderBy: [ 'name', 'asc' ]
+    }
   ])
 )(Shops);

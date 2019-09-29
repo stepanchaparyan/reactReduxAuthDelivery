@@ -16,12 +16,12 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path='/' render={() => <Dashboard />} />
-            <Route path='/signin' render={() => <SignIn />} />
-            <Route path='/signup' render={() => <SignUp />} />
-            <Route path='/forgotPassword' render={() => <ForgotPassword />} />
-            <Route path='/shops' render={() => <Shops />} />
-            <Route path='*' render={() => <PageNotFound />} />
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/forgotPassword' component={ForgotPassword} />
+            <Route path='/shops' component={Shops} />
+            <Route path='*' component={PageNotFound} />
           </Switch>
         </div>
       </BrowserRouter>

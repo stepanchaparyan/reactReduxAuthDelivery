@@ -20,10 +20,9 @@ class MyNavbar extends Component {
   }
 
   render () {
-    console.log('props in navbar ', this.props);
+    console.log('nav ', this.props);
     const { auth, profile } = this.props;
     const links = auth.uid ? <SignedInLinks auth={auth} profile={profile} signOut={this.signOut} /> : <SignedOutLinks />;
-
     return (
       <Navbar className="p-2 bg-info text-white" light expand="md">
         <Container>
@@ -38,7 +37,6 @@ class MyNavbar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ssssss', state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

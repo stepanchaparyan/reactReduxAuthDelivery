@@ -1,13 +1,16 @@
 export const addShop = (shop) => {
   return (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();
-    // const profile = getState().firebase.profile;
-    // const authorId = getState().firebase.auth.uid;
+    const profile = getState().firebase.profile;
+    const uid = getState().firebase.auth.uid;
     firestore.collection('shops').add({
       ...shop,
       name: shop.name,
       city: shop.city,
-      address: shop.address
+      address: shop.address,
+      authorName: profile.displayName,
+      uid: uid,
+      createdAt: new Date()
     }).then(() => {
       dispatch({ type: 'ADD_SHOP_SUCCESS' });
     }).catch(err => {

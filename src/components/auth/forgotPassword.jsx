@@ -37,7 +37,7 @@ class ForgotPasword extends Component {
                 <div className="logo">
                     <Image id='logo' src={logo} alt="Logo" width={180} height={80}/>
                 </div>
-                <div className="title">{M.get('forgotPassword')}</div>
+                <div className="forgot__title">{M.get('forgotPassword')}</div>
                 <ValidationForm onSubmit={this.resetPassword}>
                     <div className="form-group">
                         <label className="lebel" htmlFor="email">{M.get('resetPassword')}</label>

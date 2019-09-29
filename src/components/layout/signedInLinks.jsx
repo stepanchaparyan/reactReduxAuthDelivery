@@ -6,7 +6,6 @@ import firebase, {storage} from '../../config/fbConfig';
 import ReactTooltip from 'react-tooltip';
 import { Button, Icon, Image, Tooltip } from 'react-components';
 import M from '../../Messages';
-import Constants from '../../constants';
 import { signOut } from '../../store/actions/authActions';
 import { connect } from 'react-redux';
 
@@ -23,15 +22,12 @@ class SignedInLinks extends Component {
       image: null,
       progress: 0,
       show: false,
-      displayName: null,
-      email: null,
-      phoneNumber: null,
-      photoURL: null,
-      editable: false,
-      emailUpdateError: null
+      editableName: false,
+      editablePhoneNumber: false
+
     };
     this.textInputName = React.createRef();
-    this.textInputEmail = React.createRef();
+    this.textInputPhoneNumber = React.createRef();
     this.textInputPassword = React.createRef();
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,6 +36,7 @@ class SignedInLinks extends Component {
     this.resetProgress = this.resetProgress.bind(this);
     this.updateUserPhotoURL = this.updateUserPhotoURL.bind(this);
     this.confirmNewName = this.confirmNewName.bind(this);
+    this.confirmNewPhoneNumber = this.confirmNewPhoneNumber.bind(this);
   }
 
   showExtraInfo = () => {
@@ -119,38 +116,17 @@ class SignedInLinks extends Component {
 
   confirmNewName = (e) => {
     e.preventDefault();
-    this.setState({editable: !this.state.editable});
+    this.setState({editableName: !this.state.editableName});
     const displayName = this.textInputName.current.value;
     this.setState({displayName: displayName});
     this.updateAuthUserDisplayName(displayName);
     this.updateFirestoreUserDisplayName(displayName);
   }
 
-  updateAuthUserEmail = (email,password) => {
-    let user = firebase.auth().currentUser;
-    const credential = firebase.auth.EmailAuthProvider.credential(
-      user.email,
-      password
-    );
-    user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
-    }).catch((error) => {
-      this.setState ({
-        emailUpdateError: error.message
-      });
-    });
-    user.updateEmail(email)
-    .catch((error) => {
-      this.setState ({
-        emailUpdateError: error.message
-      });
-      console.log(error.message);
-    });
-  }
-
-  updateFirestoreUserEmail = (email) => {
+  updateFirestoreUserPhoneNumber = (phoneNumber) => {
     const uid = this.props.auth.uid;
     firebase.firestore().collection('users').doc(uid).update({
-        email: email,
+        phoneNumber: phoneNumber,
         updated: new Date()
     })
     .catch(function(error) {
@@ -158,18 +134,18 @@ class SignedInLinks extends Component {
     });
   }
 
-  confirmNewEmail = (e) => {
+  confirmNewPhoneNumber = (e) => {
     e.preventDefault();
-    this.setState({editable: !this.state.editable});
-    const email = this.textInputEmail.current.value;
-    const password = this.textInputPassword.current.value;
-    this.setState({email: email});
-    this.updateAuthUserEmail(email, password);
-    this.updateFirestoreUserEmail(email);
+    this.setState({editablePhoneNumber: !this.state.editablePhoneNumber});
+    const phoneNumber = this.textInputPhoneNumber.current.value;
+    this.setState({phoneNumber: phoneNumber});
+    this.updateFirestoreUserPhoneNumber(phoneNumber);
   }
 
   render () {
     const { profile, auth } = this.props;
+    console.log('profile', profile);
+    console.log('auth', auth);
     return (
       <Nav pills>
         <NavLink exact to='/shops' className="nav__shop__link text-white nav-text">
@@ -177,11 +153,11 @@ class SignedInLinks extends Component {
         </NavLink>
         <Tooltip
             position="bottom"
-            content={this.state.displayName || auth.displayName || profile.displayName}
+            content={profile.displayName}
           >
           <NavItem
               className="nav__profileName text-ellipsis">
-              {this.state.displayName || auth.displayName || profile.displayName}
+              {auth.displayName || profile.displayName}
           </NavItem>
         </Tooltip>
         <Image
@@ -189,57 +165,60 @@ class SignedInLinks extends Component {
             width={40}
             height={40}
             className='nav__avatar'
-            src={this.state.photoURL || auth.photoURL || Constants.photoURL}
+            src={auth.photoURL}
             onClick={this.showExtraInfo}
         />
         <div className='navbar__profileInfo'>
             {this.state.show &&
                 <div className='navbar__profileInfo__full'>
                   <div className='navbar__profileInfo__leftPart'>
-                      <div className='navbar__profileInfo__leftPart__title'>{M.get('name')}</div>
-                      { this.state.editable ?
+
+                      <div className='navbar__profileInfo__leftPart__title'>{M.get('userName')}</div>
+                      { this.state.editableName ?
+
                       <Fragment>
-                        <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
-                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputName} defaultValue={this.state.displayName || profile.displayName}></input>
+                        <div className="profile__data__editable">
+                            <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewName} />
+                            <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputName} defaultValue={profile.displayName}></input>
+                        </div>
                       </Fragment> :
+
                       <Fragment>
-                        <div className="text-ellipsis"
-                              data-tip={this.state.displayName || profile.displayName}>
-                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
-                              {this.state.displayName || profile.displayName}
+                        <div className="profile__data__editable text-ellipsis"
+                              data-tip={profile.displayName}>
+                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editableName: !this.state.editableName})} />
+                              {profile.displayName}
                         </div>
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-                      <div className='navbar__profileInfo__leftPart__title'>{M.get('email')}</div>
-                      { this.state.editable ?
+
+                      <div className='navbar__profileInfo__leftPart__title'>{M.get('phoneNumber')}</div>
+                      { this.state.editablePhoneNumber ?
+
                       <Fragment>
-                        <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewEmail} />
-                        <input type="text" className="navbar__profileInfo__editableInput" ref={this.textInputEmail} defaultValue={this.state.email || auth.email}></input>
+                        <Icon name='check' size={1.2} className="navbar__profileInfo__faEdit" onClick={this.confirmNewPhoneNumber} />
+                        <input type="number" className="navbar__profileInfo__editableInput" ref={this.textInputPhoneNumber} defaultValue={profile.phoneNumber}></input>
                       </Fragment> :
+
                       <Fragment>
-                        <div className="text-ellipsis"
-                              data-tip={this.state.email || auth.email}>
-                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editable: !this.state.editable})} />
-                              {this.state.email || auth.email}
+                        <div className="profile__data__editable text-ellipsis"
+                              data-tip={profile.phoneNumber}>
+                              <Icon name='edit' size={1.2} className="navbar__profileInfo__faEdit" onClick={() => this.setState({editablePhoneNumber: !this.state.editablePhoneNumber})} />
+                              {profile.phoneNumber}
                         </div>
-                        {this.state.emailUpdateError && <div className='navbar__profileInfo__emailErrorMessage'>{this.state.emailUpdateError}</div>}
                         <ReactTooltip className='navbar__profileInfo__editableInput__tooltipClass' place="left" type="info" effect="solid" />
                       </Fragment>
                       }
-                      { this.state.editable &&
-                      <Fragment>
-                        <div className='navbar__profileInfo__leftPart__title'>{M.get('confirmPassword')}</div>
-                        <input type="text" className='navbar__profileInfo__editableInput navbar__profileInfo__editableInput--margin' ref={this.textInputPassword} defaultValue=''></input>
-                      </Fragment>
-                      }
+
                   </div>
+
                   <div className="navbar__profileInfo__rightPart">
                       <Fragment>
                           <label htmlFor="navbar__profileInfo__fileInput">
                               <Image
                                   className='navbar__profileInfo__uploadingImage'
-                                  src={this.state.photoURL || auth.photoURL || profile.photoURL}
+                                  src={profile.photoURL}
                                   width={120}
                                   height={120}
                               />

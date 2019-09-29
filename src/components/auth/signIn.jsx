@@ -69,7 +69,7 @@ class SignIn extends Component {
             <div className="logo">
               {/* <Image id='logo' src={logoSignIn} alt="Logo" height={20} width={210}/> */}
             </div>
-            <div className="title">{M.get('logIn')}</div>
+            <div className="signIn__title">{M.get('logIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
               <div className="form-group">
                   <label className="lebel" htmlFor="email">{M.get('email')}</label>
@@ -112,7 +112,7 @@ class SignIn extends Component {
               <Link className="forgotPassword" to="/forgotPassword">{M.get('forgotPassword')}?</Link>
               <StyledFirebaseAuth
                 uiConfig={this.uiConfig}
-                firebaseAuth={firebase.auth()}
+                firebaseAuth={firebase.auth().then}
                 className={'socialAuth'}
               />
           </ValidationForm>
