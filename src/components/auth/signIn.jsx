@@ -5,9 +5,7 @@ import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Button, Icon } from 'react-components';
-import firebase from '../../config/fbConfig';
 import M from '../../Messages';
 // import logoSignIn from '../../assets/logoSignIn.png';
 import { connect } from 'react-redux';
@@ -21,18 +19,6 @@ class SignIn extends Component {
     user: '',
     errorText: '',
     iconName: 'eye-slash'
-  }
-
-  uiConfig = {
-    signInFlow: 'popup',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: () => false
-    }
   }
 
   static propTypes = {
@@ -110,11 +96,6 @@ class SignIn extends Component {
                 <Button className="btnSign">{M.get('submit')}</Button>
               </div>
               <Link className="forgotPassword" to="/forgotPassword">{M.get('forgotPassword')}?</Link>
-              <StyledFirebaseAuth
-                uiConfig={this.uiConfig}
-                firebaseAuth={firebase.auth()}
-                className={'socialAuth'}
-              />
           </ValidationForm>
           </div>
         </div>
