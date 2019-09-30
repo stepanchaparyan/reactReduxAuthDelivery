@@ -27,7 +27,7 @@ export const updateShop = (data, shopData, shopId) => {
     }).then(() => {
       dispatch({ type: 'UPDATE_SHOP_SUCCESS' });
     }).catch(err => {
-      dispatch({ type: 'UPDATE_SHOP_ERROR' }, err);
+      dispatch({ type: 'UPDATE_SHOP_ERROR', payload: err });
     });
   };
 };

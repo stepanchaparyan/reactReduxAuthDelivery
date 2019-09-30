@@ -5,6 +5,7 @@ import { deleteShop } from '../../store/actions/shopActions';
 import UpdateShop from './updateShop';
 import PropTypes from 'prop-types';
 import messages from '../../en.messages';
+import ErrorBoundary from './ErrorBoundary';
 
 class ShopList extends Component {
   constructor(props) {
@@ -60,7 +61,11 @@ class ShopList extends Component {
                   <tr className="updateTR">
                     <td className="emptySpace"></td>
                     <td>
-                      <UpdateShop id={shop.id} data="name"/>
+
+                      <ErrorBoundary>
+                        <UpdateShop id={shop.id} data="name"/>
+                      </ErrorBoundary>
+
                     </td>
                     <td>
                       <UpdateShop id={shop.id} data="city"/>

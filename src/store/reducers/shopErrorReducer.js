@@ -1,7 +1,8 @@
-const initState = {};
+const initState = {
+  authError: null
+};
 
-
-const shopReducer = (state = initState, action) => {
+const shopErrorReducer = (state = initState, action) => {
   switch (action.type) {
 
     case 'ADD_SHOP_SUCCESS':
@@ -9,25 +10,34 @@ const shopReducer = (state = initState, action) => {
       return state;
     case 'ADD_SHOP_ERROR':
       console.log('add_shop error');
-      return state;
+      return {
+        ...state,
+        authError: action.payload
+      };
 
     case 'UPDATE_SHOP_SUCCESS':
       console.log('update_shop success');
       return state;
     case 'UPDATE_SHOP_ERROR':
-      console.log('update_shop error');
-      return state;
+      console.log('update_shop error', action);
+      return {
+        ...state,
+        authError: action.payload
+      };
 
     case 'DELETE_SHOP_SUCCESS':
       console.log('delete_shop success');
       return state;
     case 'DELETE_SHOP_ERROR':
       console.log('delete_shop error');
-      return state;
+      return {
+        ...state,
+        authError: action.payload
+      };
 
     default:
       return state;
   }
 };
 
-export default shopReducer;
+export default shopErrorReducer;

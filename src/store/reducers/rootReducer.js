@@ -1,12 +1,12 @@
-import authReducer from './authReducer';
-import shopReducer from './shopReducer';
+import authReducer from './authErrorReducer';
+import shopReducer from './shopErrorReducer';
 import { combineReducers } from 'redux';
 import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  shopReducer: shopReducer,
+  authErrorReducer: authReducer,
+  shopErrorReducer: shopReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer
 });

@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    authError: state.auth.authError
+    authError: state.authErrorReducer.authError
   };
 };
 

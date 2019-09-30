@@ -8,20 +8,45 @@ import AddShop from './addShop';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import messages from '../../en.messages';
+import { Modal } from 'react-components';
 
 class Shops extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: true
+    };
+
+    this.onCancel = this.onCancel.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   static propTypes = {
     auth: PropTypes.shape({
       uid: PropTypes.string
     }),
-    shops: PropTypes.arrayOf(PropTypes.object)
+    shops: PropTypes.arrayOf(PropTypes.object),
+    shopsError: PropTypes.object
   };
 
+  onCancel() {
+    console.log('cancel');
+  }
+
+  onSubmit() {
+    console.log('submit');
+    this.setState({
+      showModal: false
+    });
+  }
+
   render() {
-    const { shops, auth } = this.props;
+    const { shops, auth, shopsError } = this.props;
+    console.log('shops props ', this.props);
     if (!auth.uid) {return <Redirect to='/signin' />;}
     return (
       <DocumentTitle title='Shops'>
+      {!shopsError ?
         <div className="shopPage">
           <div className="shopListTitle">{messages.shopsList}</div>
             <ShopList shops={shops}/>
@@ -32,7 +57,16 @@ class Shops extends Component {
             <hr />
             <AddShop />
             <hr />
-        </div>
+        </div> :
+        <Modal
+            title={'Error'}
+            isOpen={this.state.showModal}
+            onCancel={this.onCancel}
+            onSubmit={this.onSubmit}
+        >
+        <p>You have error: {shopsError}</p>
+        </Modal>
+      }
       </DocumentTitle>
     );
   }
@@ -41,7 +75,8 @@ class Shops extends Component {
 const mapStateToProps = (state) => {
   return {
     shops: state.firestore.ordered.shops,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    shopsError: state.shopErrorReducer.authError
   };
 };
 

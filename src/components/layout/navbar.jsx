@@ -20,7 +20,7 @@ class MyNavbar extends Component {
   }
 
   render () {
-    console.log('nav ', this.props);
+    console.log('navbar props ', this.props);
     const { auth, profile } = this.props;
     const links = auth.uid ? <SignedInLinks auth={auth} profile={profile} signOut={this.signOut} /> : <SignedOutLinks />;
     return (
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    authError: state.auth.authError
+    authError: state.authErrorReducer.authError
   };
 };
 
