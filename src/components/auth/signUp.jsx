@@ -52,7 +52,7 @@ class SignUp extends Component {
 
   render() {
     // eslint-disable-next-line no-unused-vars
-    const { auth, authError } = this.props;
+    const { auth } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
@@ -145,8 +145,7 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
-    authError: state.auth.authError
+    auth: state.firebase.auth
   };
 };
 

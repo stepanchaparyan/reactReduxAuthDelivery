@@ -165,7 +165,7 @@ class SignedInLinks extends Component {
             width={40}
             height={40}
             className='nav__avatar'
-            src={auth.photoURL}
+            src={auth.photoURL || profile.photoURL}
             onClick={this.showExtraInfo}
         />
         <div className='navbar__profileInfo'>

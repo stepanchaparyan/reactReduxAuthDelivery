@@ -11,10 +11,6 @@ export const addShop = (shop) => {
       authorName: profile.displayName,
       uid: uid,
       createdAt: new Date()
-    }).then(() => {
-      dispatch({ type: 'ADD_SHOP_SUCCESS' });
-    }).catch(err => {
-      dispatch({ type: 'ADD_SHOP_ERROR' }, err);
     });
   };
 };
@@ -24,10 +20,6 @@ export const updateShop = (data, shopData, shopId) => {
     const firestore = getFirestore();
     firestore.collection('shops').doc(shopId).update({
       [data]: shopData
-    }).then(() => {
-      dispatch({ type: 'UPDATE_SHOP_SUCCESS' });
-    }).catch(err => {
-      dispatch({ type: 'UPDATE_SHOP_ERROR' }, err);
     });
   };
 };
@@ -35,11 +27,6 @@ export const updateShop = (data, shopData, shopId) => {
 export const deleteShop = (id) => {
   return (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();
-    firestore.collection('shops').doc(id).delete()
-    .then(() => {
-      dispatch({ type: 'DELETE_SHOP_SUCCESS' });
-    }).catch(err => {
-      dispatch({ type: 'DELETE_SHOP_ERROR' }, err);
-    });
+    firestore.collection('shops').doc(id).delete();
   };
 };
