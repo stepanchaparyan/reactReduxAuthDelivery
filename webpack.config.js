@@ -30,7 +30,7 @@ const common = {
                 options: {
                     name: '[name].[ext]',
                     outputPath: 'images/',
-                    publicPath: 'src/assets/'
+                    publicPath: '/src/assets/'
                 }
             },
             {

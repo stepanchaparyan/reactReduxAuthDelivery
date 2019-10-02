@@ -1,171 +1,85 @@
 .loginContainer {
-    display: grid;
-    grid-template-areas: "up up up"
-                         "left main right"
-                         "down down down";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.2fr 1fr 0.3fr;
-    min-height: 92.5vh;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-image: url("./assets/bg.jpg");
-}
-
-.formSignUp {
-    grid-area: main;
-    display: grid;
-    grid-template-areas: "logo"
-                         "title"
-                         "form";
-    grid-template-rows: 0.1fr 0.2fr 0.9fr;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: $lightBlack;
-    background-color: #d5dde8;
-    opacity: 0.9;
-    border-radius: 10px;
-}
-
-.formSignIn {
-    @extend .formSignUp;
-}
-
-.logo {
-    grid-area: logo;
-    margin: auto;
-    margin-top: 20px;
-}
-
-.signUp__title, .signIn__title{
-    grid-area: title;
-    font-size: 30px;
-    margin-left: 37%;
-}
-
-.forgot__title {
-    grid-area: title;
-    align-self: center;
-    font-size: 30px;
-    margin: auto !important;
-}
-
-.form-group {
-    margin-bottom: 3%;
-    .lebel {
-        margin-left: 5% !important;
-        margin-bottom: 0 !important;
-    }
-    .input-group-append {
-        background-color: $midgray;
-        border: 1px solid $lightgray;
-        border-radius: 0 4px 4px 0;
-        #eye {
-            padding: 4px 7px;
-            .eye {
-                margin-top: 2px;
-            }
+    min-height: 93vh;
+    .formAuth {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+        color: $lightBlack;
+        background-color: #d5dde8;
+        opacity: 0.9;
+        border-radius: 10px;
+        padding: 30px;
+        width: 35%;
+        margin-bottom: 10%;   
+        .logo {
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 5%;
+            text-align: center;
         }
-    }
-    .btnSign {
-        width: 90%;
-        margin: 10% 5% 0 5%;
-        padding: 9px 0;
-    }
-}
-
-.form-group input, .invalid-feedback {
-    width: 90%;
-    margin: 0 5% 0 5%;
-}
-
-#password {
-    width: 85%;
-    margin: 0 0 0 5%;
-    flex: none;
-    border-radius: 4px 0 0 4px;
-}
-
-#wrongUser {
-    color: $errorText-color;
-    margin: 0 5%;
-    font-size: 16px;
-}
-
-.formForgotPassword {
-    @extend .formSignUp;
-    grid-template-rows: 0.2fr 0.4fr 1.5fr;
-}
-
-.forgotPassword {
-    grid-area: forgotPassword;
-    margin-left: 7%;
-    font-size: 16px;
-    cursor: pointer;
-    color: $blueGreen;
-}
-
-.socialAuth {
-    margin-top: 50px;
-    .firebaseui-container {
-        max-width: none !important;
-        .firebaseui-card-content {
-            padding: 0px !important;
-            & > * {
-                margin: 0 5% !important;
-                width: 90% !important;
+        .signAuth__title {
+            font-size: 30px;
+            text-align: center;
+            margin: 6% 0;
+        }
+        .forgot__title {
+            text-align: center;
+            font-size: 27px;
+            margin: 10% 0 5% 0;
+        }
+        .form-group {
+            margin-bottom: 3%;            
+            .lebel {
+                margin-bottom: 0 !important;
             }
-            .firebaseui-idp-button {
-                max-width: none !important;
-                min-height: none !important;
+            .btnSign {
+                width: 100%;
+                margin-top: 10%;
+                padding: 5px 0;
+            }
+            #email, #password {
                 width: 100% !important;
-                border-radius: 5px !important;
-                height: 48px !important;
-                padding: 0px !important
+                flex: none !important;
+                border-radius: 4px;
             }
-            .firebaseui-idp-icon {
-                margin-left: 15px;
+            #wrongUser {
+                color: $errorText-color;
+                margin: 0 5%;
+                font-size: 16px;
             }
+        }
+        .forgotPassword {
+            font-size: 16px;
+            cursor: pointer;
+            color: $blueGreen;
         }
     }
 }
 
-@media screen and (max-width: 1700px) {
-    #password {width: 83%; }    
+// media screens for extra large and extra small screens
+@media screen and (min-width: 1050px) {
+    .formAuth {max-width: 35%; }    
 } 
-@media screen and (max-width: 1500px) {
-    #password {width: 82.5%; }    
+@media screen and (min-width: 1150px) {
+    .formAuth {max-width: 32%; }    
 } 
-@media screen and (max-width: 1400px) {
-    #password {width: 81.5%; }    
+@media screen and (min-width: 1250px) {
+    .formAuth {max-width: 28%; }    
 } 
-@media screen and (max-width: 1200px) {
-    #password {width: 81%; }    
-}  
-@media screen and (max-width: 1100px) {
-    #password {width: 80%; }    
-} 
-@media screen and (max-width: 1000px) {
-    #password {width: 79%; }    
-} 
-@media screen and (max-width: 900px) {
-    #password {width: 81%; }   
-    .loginContainer {grid-template-columns: 1fr 1.5fr 1fr; }    
-} 
-@media screen and (max-width: 800px) {
-    #password {width: 80%; }
-    .loginContainer {grid-template-columns: 1fr 2fr 1fr; }    
+@media screen and (min-width: 1350px) {
+    .formAuth {max-width: 26%; }    
 }
-@media screen and (max-width: 700px) {
-    #password {width: 79%; }    
+@media screen and (max-width: 750px) {
+    .formAuth {min-width: 40%; margin-bottom: 20% }    
 } 
-@media screen and (max-width: 650px) {
-    #password {width: 90%; }    
-    .input-group-append {display: none !important; }
-    .loginContainer {grid-template-columns: 20% auto 20%; }    
+@media screen and (max-width: 670px) {
+    .formAuth {min-width: 45%; }    
 } 
 @media screen and (max-width: 600px) {
-    .loginContainer {grid-template-columns: 17% auto 17%; }    
+    .formAuth {min-width: 50%; margin-bottom: 25% }    
 } 
-@media screen and (max-width: 500px) {
-    .loginContainer {grid-template-columns: 10% auto 10%; }    
-}

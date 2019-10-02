@@ -5,9 +5,9 @@ import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import { Button, Icon } from 'react-components';
+import { Button, Image } from 'react-components';
 import M from '../../Messages';
-// import logo from '../../assets/logo2.png';
+import logo from '../../assets/logo2.png';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 
@@ -15,10 +15,8 @@ class SignIn extends Component {
   state = {
     email: '',
     password: '',
-    type: 'password',
     user: '',
-    errorText: '',
-    iconName: 'eye-slash'
+    errorText: ''
   }
 
   static propTypes = {
@@ -40,22 +38,17 @@ class SignIn extends Component {
     this.props.signIn(this.state);
   }
 
-  showhidepass = () => {
-    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
-    this.state.iconName === 'eye-slash' ? this.setState({iconName: 'eye'}) : this.setState({iconName: 'eye-slash'});
-  }
-
   render() {
     const { auth } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
     return (
       <DocumentTitle title='Simple Auth App - Sign In'>
         <div className="loginContainer">
-        <div className="formSignIn">
+        <div className="formAuth">
             <div className="logo">
-              {/* <Image id='logo' src={logo} alt="Logo" height={20} width={210}/> */}
+              <Image id='logo' src={logo} alt="Logo" height={20} width={210}/>
             </div>
-            <div className="signIn__title">{M.get('signIn')}</div>
+            <div className="signAuth__title">{M.get('signIn')}</div>
             <ValidationForm onSubmit={this.handleSubmit}>
               <div className="form-group">
                   <label className="lebel" htmlFor="email">{M.get('email')}</label>
@@ -85,7 +78,6 @@ class SignIn extends Component {
                       }}
                       value={this.state.password}
                       onChange={this.handleChange}
-                      append={<div id="eye" onClick={this.showhidepass}><Icon name={this.state.iconName} className='eye' /> </div>}
                       autoComplete='true'
                   />
               </div>

@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import { ValidationForm, TextInput, TextInputGroup } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { DebounceInput } from 'react-debounce-input';
-import { Button, Icon } from 'react-components';
+import { Button, Image } from 'react-components';
 import Constants from '../../constants';
 import M from '../../Messages';
-// import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.png';
 
 class SignUp extends Component {
   state = {
@@ -18,11 +18,9 @@ class SignUp extends Component {
     password: '',
     displayName: '',
     phoneNumber: '',
-    type: 'password',
     user: '',
     errorText: '',
-    photoURL: Constants.photoURL,
-    iconName: 'eye-slash'
+    photoURL: Constants.photoURL
   }
 
   static propTypes = {
@@ -45,23 +43,17 @@ class SignUp extends Component {
     this.props.signUp(this.state);
   }
 
-  showhidepass = () => {
-    this.state.type === 'password' ? this.setState({type: 'text'}) : this.setState({type: 'password'});
-    this.state.iconName === 'eye-slash' ? this.setState({iconName: 'eye'}) : this.setState({iconName: 'eye-slash'});
-  }
-
   render() {
-    // eslint-disable-next-line no-unused-vars
     const { auth } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
         <div className="loginContainer">
-        <div className="formSignUp">
+        <div className="formAuth">
           <div className="logo">
-            {/* <Image src={logo} id='logo' alt="Logo" height={80} width={200} /> */}
+            <Image src={logo} id='logo' alt="Logo" height={25} width={200} />
           </div>
-          <div className="signUp__title">{M.get('signup')}</div>
+          <div className="signAuth__title">{M.get('signup')}</div>
           <ValidationForm onSubmit={this.handleSubmit}>
             <div className="form-group">
                 <label className="lebel" htmlFor="email">{M.get('email')}</label>
@@ -91,7 +83,6 @@ class SignUp extends Component {
                     }}
                     value={this.state.password}
                     onChange={this.handleChange}
-                    append={<div id="eye" onClick={this.showhidepass}><Icon name={this.state.iconName} className='eye' /></div>}
                     autoComplete='true'
                 />
             </div>
@@ -112,23 +103,6 @@ class SignUp extends Component {
                     onChange={this.handleChange}
                 />
             </div>
-            {/* <div className="form-group">
-                <label className="lebel" htmlFor="phoneNumber">{messages.phoneNumber}</label>
-                <DebounceInput element={TextInputGroup}
-                    debounceTimeout={500}
-                    name="phoneNumber"
-                    id="phoneNumber"
-                    type="text"
-                    required
-                    pattern=".{9,}"
-                    errorMessage={{
-                        required: 'Phone Number is required',
-                        pattern: 'Phone Number should be at least 9 characters long'
-                    }}
-                    value={this.state.phoneNumber}
-                    onChange={this.handleChange}
-                />
-            </div> */}
             <div id="wrongUser">
                   { this.state.errorText ? <p>{this.state.errorText}</p> : null }
               </div>
