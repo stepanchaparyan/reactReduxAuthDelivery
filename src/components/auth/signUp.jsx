@@ -19,7 +19,6 @@ class SignUp extends Component {
     displayName: '',
     phoneNumber: '',
     user: '',
-    errorText: '',
     photoURL: Constants.photoURL
   }
 
@@ -44,7 +43,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth, authError } = this.props;
     if (auth.uid) {return <Redirect to='/' />; }
     return (
       <DocumentTitle title='Simple Auth App - Sign Up'>
@@ -104,7 +103,7 @@ class SignUp extends Component {
                 />
             </div>
             <div id="wrongUser">
-                  { this.state.errorText ? <p>{this.state.errorText}</p> : null }
+                { authError ? <p>{authError}</p> : null }
               </div>
             <div className="form-group">
                 <Button className="btnSign">{M.get('submit')}</Button>
@@ -119,7 +118,8 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    authError: state.auth.authError
   };
 };
 

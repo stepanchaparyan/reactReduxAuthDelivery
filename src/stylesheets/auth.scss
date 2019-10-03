@@ -47,11 +47,11 @@
                 flex: none !important;
                 border-radius: 4px;
             }
-            #wrongUser {
-                color: $errorText-color;
-                margin: 0 5%;
-                font-size: 16px;
-            }
+        }
+        #wrongUser {
+            color: $errorText-color;
+            margin: 0 5%;
+            font-size: 16px;
         }
         .forgotPassword {
             font-size: 16px;
