@@ -45,7 +45,7 @@ const common = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve('./public/index.html'),
-            favicon: path.resolve('./src/assets/favicon.ico')
+            favicon: path.resolve('./public/favicon.ico')
         })
     ],
     performance: {

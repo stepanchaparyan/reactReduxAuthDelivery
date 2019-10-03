@@ -5,6 +5,7 @@ import { deleteShop } from '../../store/actions/shopActions';
 import UpdateShop from './updateShop';
 import PropTypes from 'prop-types';
 import messages from '../../en.messages';
+import { Link } from 'react-router-dom';
 
 class ShopList extends Component {
   constructor(props) {
@@ -48,7 +49,9 @@ class ShopList extends Component {
                   <Fragment key={i}>
                   <tr key={i}>
                     <td className="firstTD">{i+1}</td>
-                    <td className="shopData">{shop.name}</td>
+                    <td className="shopData">
+                      <Link className="shopLink" to={'/shops/' + shop.id}>{shop.name}</Link>
+                    </td>
                     <td className="shopData">{shop.city}</td>
                     <td className="shopData">{shop.address}</td>
                     <td id="x" onClick={() => this.props.deleteShop(shop.id)}>x</td>

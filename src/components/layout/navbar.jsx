@@ -20,7 +20,7 @@ class MyNavbar extends Component {
   }
 
   render () {
-    console.log('nav ', this.props);
+    // console.log('nav ', this.props);
     const { auth, profile } = this.props;
     const links = auth.uid ? <SignedInLinks auth={auth} profile={profile} signOut={this.signOut} /> : <SignedOutLinks />;
     return (

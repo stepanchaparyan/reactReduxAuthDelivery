@@ -144,8 +144,8 @@ class SignedInLinks extends Component {
 
   render () {
     const { profile, auth } = this.props;
-    console.log('profile', profile);
-    console.log('auth', auth);
+    // console.log('profile', profile);
+    // console.log('auth', auth);
     return (
       <Nav pills>
         <NavLink exact to='/shops' className="nav__shop__link text-white nav-text">

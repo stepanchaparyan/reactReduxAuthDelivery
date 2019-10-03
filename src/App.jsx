@@ -8,6 +8,7 @@ import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
 import PageNotFound from './components/pageNotFound';
 import Shops from './components/shops/shops';
+import ShopDetails from './components/shops/shopDetails';
 
 class App extends Component {
   render() {
@@ -20,7 +21,8 @@ class App extends Component {
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
             <Route path='/forgotPassword' component={ForgotPassword} />
-            <Route path='/shops' component={Shops} />
+            <Route exact path='/shops' component={Shops} />
+            <Route path='/shops/:id' component={ShopDetails} />
             <Route path='*' component={PageNotFound} />
           </Switch>
         </div>
