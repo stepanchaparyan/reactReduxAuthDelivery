@@ -27,6 +27,16 @@ let messages = {
     address: 'Address',
     shopsList: 'Shops list',
     addNewShop: 'Add new shop',
+    shop: {
+        'name': 'Shop Name',
+        'city': 'Shop City',
+        'address': 'Shop Address',
+        'authorName': 'Shop AuthorName',
+        'UID': 'Shop UID',
+        'createdAt': 'Created at',
+        'updatedAt': 'Updated at',
+        'detailsPageTitle': 'More information about this shop'
+    },
 
     products: 'Products',
     productsList: 'Products list',

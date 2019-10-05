@@ -6,7 +6,8 @@ const common = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -34,7 +35,7 @@ const common = {
                 }
             },
             {
-                test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+                test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 use: 'url-loader?limit=100000'
             }
         ]

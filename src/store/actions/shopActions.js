@@ -10,7 +10,8 @@ export const addShop = (shop) => {
       address: shop.address,
       authorName: profile.displayName,
       uid: uid,
-      createdAt: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
   };
 };
@@ -19,7 +20,8 @@ export const updateShop = (data, shopData, shopId) => {
   return (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();
     firestore.collection('shops').doc(shopId).update({
-      [data]: shopData
+      [data]: shopData,
+      updatedAt: new Date()
     });
   };
 };

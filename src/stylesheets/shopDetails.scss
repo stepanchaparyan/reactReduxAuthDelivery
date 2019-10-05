@@ -1,0 +1,29 @@
+.shop__details__page {
+    background-color: $lightgreyShopPage;
+    min-height: 93vh;
+     .shop__details__page__description {
+            color: $appColor;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+     }  
+    .shop__details__container {
+        margin: 0 20%;
+        border: 1px solid $appColor;
+        .shop__name__section {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 7px 15px;
+        }
+        .shop__details {
+            color: $appColor;
+            padding-left: 15px;
+        }
+    }
+}
+
+
+ 
+
+
