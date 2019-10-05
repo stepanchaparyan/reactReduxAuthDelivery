@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Spinner } from 'react-components';
 import { Redirect } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
@@ -34,9 +35,7 @@ const ShopDetails = (props) => {
     );
   } else {
     return (
-      <div className="container center">
-        <p>Loading shop...</p>
-      </div>
+      <Spinner className={'appSpinner'}/>
     );
   }
 };
