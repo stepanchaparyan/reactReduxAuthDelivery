@@ -1,43 +1,45 @@
+import { LOGIN_SUCCESS, LOGIN_ERROR, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR, SIGNOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_ERROR } from '../../constants';
+
 const initState = {
     authError: null
   };
 
   const authReducer = (state = initState, action) => {
     switch (action.type){
-      case 'LOGIN_ERROR':
+      case LOGIN_ERROR:
         console.log('login error');
         return {
           ...state,
           authError: action.err.message
         };
-      case 'LOGIN_SUCCESS':
+      case LOGIN_SUCCESS:
         console.log('login success');
         return {
           ...state,
           authError: null
         };
-      case 'RESET_PASSWORD_ERROR':
+      case RESET_PASSWORD_ERROR:
         console.log('reset password error');
         return {
           ...state,
           authError: action.err.message
       };
-      case 'RESET_PASSWORD':
+      case RESET_PASSWORD_SUCCESS:
         console.log('reset password sent');
         return {
           ...state,
           authError: null
       };
-      case 'SIGNOUT_SUCCESS':
+      case SIGNOUT_SUCCESS:
         console.log('signout success');
         return state;
-      case 'SIGNUP_SUCCESS':
+      case SIGNUP_SUCCESS:
         console.log('signup success');
         return {
           ...state,
           authError: null
         };
-      case 'SIGNUP_ERROR':
+      case SIGNUP_ERROR:
         console.log('signup error');
         return {
           ...state,

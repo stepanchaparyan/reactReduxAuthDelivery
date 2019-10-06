@@ -1,3 +1,5 @@
+import { LOGIN_SUCCESS, LOGIN_ERROR, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR } from '../../constants';
+
 export const signIn = (credentials) => {
   return (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase();
@@ -5,9 +7,9 @@ export const signIn = (credentials) => {
       credentials.email,
       credentials.password
       ).then(() => {
-        dispatch({ type: 'LOGIN_SUCCESS' });
+        dispatch({ type: LOGIN_SUCCESS });
       }).catch((err) => {
-        dispatch({ type: 'LOGIN_ERROR', err });
+        dispatch({ type: LOGIN_ERROR, err });
       });
   };
 };
@@ -17,9 +19,9 @@ export const resetPassword = (email) => {
     const firebase = getFirebase();
     firebase.auth().sendPasswordResetEmail(email)
     .then(() => {
-      dispatch({ type: 'RESET_PASSWORD' });
+      dispatch({ type: RESET_PASSWORD_SUCCESS });
     }).catch((err) => {
-      dispatch({ type: 'RESET_PASSWORD_ERROR', err });
+      dispatch({ type: RESET_PASSWORD_ERROR, err });
     });
   };
 };
@@ -28,6 +30,7 @@ export const signOut = () => {
   return (dispatch, getState, {getFirebase}) => {
     const firebase = getFirebase();
     firebase.auth().signOut();
+    firebase.logout();
   };
 };
 
@@ -48,9 +51,9 @@ export const signUp = (newUser) => {
         photoURL: newUser.photoURL
       });
     }).then(() => {
-      dispatch({ type: 'SIGNUP_SUCCESS' });
+      dispatch({ type: SIGNUP_SUCCESS });
     }).catch((err) => {
-      dispatch({ type: 'SIGNUP_ERROR', err});
+      dispatch({ type: SIGNUP_ERROR, err});
     });
   };
 };
