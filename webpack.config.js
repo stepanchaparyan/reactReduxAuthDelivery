@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const common = {
     entry: './src/index.js',
@@ -44,11 +46,20 @@ const common = {
         extensions: ['*', '.js', '.jsx', '.json', '.gif', '.png']
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve('./public/index.html'),
             favicon: path.resolve('./public/favicon.ico')
         })
     ],
+
+    optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin()
+        ]
+     },
+
     performance: {
         // hints: 'warning', // false, 'error'
         maxEntrypointSize: 512000,
@@ -63,13 +74,13 @@ const developmentConfig = {
             errors: true,
             warnings: true
         },
-        port: 3003,
+        port: 3002,
         historyApiFallback: true,
         contentBase: './',
         hot: true
-    }
+    },
     // watch: true
-    // devtool: 'source-map',
+    devtool: 'source-map'
     // devtool: 'inline-source-map'
 };
 
