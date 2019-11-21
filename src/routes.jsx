@@ -5,7 +5,7 @@ import Dashboard from './components/dashboard/dashboard';
 import SignIn from './components/auth/signIn';
 import SignUp from './components/auth/signUp';
 import ForgotPassword from './components/auth/forgotPassword';
-import PageNotFound from './components/pageNotFound';
+import PageNotFound from './components/PageNotFound';
 import Shops from './components/shops/shops';
 import ShopDetails from './components/shops/shopDetails';
 

@@ -38,7 +38,7 @@
         "no-var": 2,
         "no-throw-literal": 1,
         "no-case-declarations": 0,
-        "comma-dangle": [2, "never"],
+        "comma-dangle": [0, "never"],
         "no-console": 0,
         "block-scoped-var": 2,
         "consistent-return": 0,
