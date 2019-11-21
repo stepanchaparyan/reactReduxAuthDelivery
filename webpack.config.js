@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
-const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const envSettings = require('./envSettings.json');
 
 const common = {
     entry: './src/index.js',
@@ -26,69 +28,75 @@ const common = {
                 test: /\.s(a|c)ss$/i,
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
-            {
-                test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-                exclude: /node_modules/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: 'images/',
-                    publicPath: '/src/assets/'
-                }
-            },
+            // {
+            //     test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif|ico)(\?\S*)?$/,
+            //     exclude: /node_modules/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         name: '[name].[ext]',
+            //         outputPath: '/images/',
+            //         publicPath: '/src/assets/'
+            //     }
+            // },
             {
                 test: /.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 use: 'url-loader?limit=100000'
+            },           
+            {
+                test: /\.mjs$/,
+                include: /node_modules/,
+                type: 'javascript/auto'
             }
         ]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.json', '.gif', '.png']
+        extensions: ['.mjs', '.js', '.jsx', '.json']
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve('./public/index.html'),
             favicon: path.resolve('./public/favicon.ico')
-        })
-    ],
+        }),
+        new webpack.optimize.OccurrenceOrderPlugin()    
+    ]
+};
 
+const productionConfig = {
+    mode: 'production',
     optimization: {
-        minimize: true,
-        minimizer: [
-          new TerserPlugin()
-        ]
-     },
-
-    performance: {
-        // hints: 'warning', // false, 'error'
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000
+        minimizer: [new UglifyJsPlugin({
+            uglifyOptions: {               
+                compress: {},
+                mangle: true                
+            },
+          }),
+        ],
     }
 };
 
 const developmentConfig = {
+    mode: 'development',
     devServer: {
-        stats: 'errors-only',
+        stats: 'errors-warnings',
         overlay: {
             errors: true,
             warnings: true
         },
-        port: 3002,
+        port: envSettings.port,
         historyApiFallback: true,
-        contentBase: './',
-        hot: true
-    },
-    // watch: true
-    devtool: 'source-map'
-    // devtool: 'inline-source-map'
+        contentBase: './src',
+    }
 };
 
-module.exports = function (env) {
-    if (env === 'production') {
-        return common;
+module.exports = function () {
+    if (process.env.NODE_ENV === 'production') {
+        return merge([
+            common,
+            productionConfig
+        ]);
     }
-    if (env === 'development') {
+    if (process.env.NODE_ENV === 'development') {
         return merge([
             common,
             developmentConfig
